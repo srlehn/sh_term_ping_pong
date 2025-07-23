@@ -11,7 +11,7 @@ stty -echo
 trap 'stty echo; trap - INT; (exit 130)' INT
 
 # bind key sequence to the function name with return (this executes the function)
-# to the terminal escape sequence response.
+# to the Device Status Report (DSR) response from the terminal (an escape sequence).
 bind "\"\\e[0n\": \"main\\n\""
 
 main(){
@@ -19,9 +19,9 @@ main(){
   ((i)) && { i=0; a=i; } || { i=1; a=o; }
   # actual output
   echo "p${a}ng"
-  # trigger the terminal to send an escape sequence response
+  # request a Device Status Report (DSR) from the terminal
   printf "\\e[5n"
-  # with a small pause, the shell terminal interaction becomes interruptable with Ctr-C
+  # with a small pause, the shell terminal interaction becomes interruptable with Ctrl-C
   sleep .15
 }
 
